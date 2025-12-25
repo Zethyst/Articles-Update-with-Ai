@@ -14,6 +14,8 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
+# Clear cached package discovery to remove dev-only packages
+RUN rm -f bootstrap/cache/packages.php bootstrap/cache/services.php
 
 RUN chmod -R 777 storage bootstrap/cache
 
