@@ -2,7 +2,7 @@ import { useArticles } from "@/hooks/useArticles";
 import ArticleSection from "@/components/ArticleSection";
 import UpdateButton from "@/components/UpdateButton";
 import LaravelIcon from "@/components/LaravelIcon";
-import NodeJsIcon from "@/components/NodeJsIcon";
+import NodeJsIcon from "@/components/NodeJSIcon";
 import { ArrowDown } from "lucide-react";
 
 const Index = () => {

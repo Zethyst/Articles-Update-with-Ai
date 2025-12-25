@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { fetchArticles, updateArticles } from "@/services/articleAPI";
+import type { Article } from "@/types/article";
 import toast from "react-hot-toast";
 
 const STORAGE_KEY = "original_articles";
 
 export const useArticles = () => {
-  const [originalArticles, setOriginalArticles] = useState([]);
-  const [updatedArticles, setUpdatedArticles] = useState([]);
+  const [originalArticles, setOriginalArticles] = useState<Article[]>([]);
+  const [updatedArticles, setUpdatedArticles] = useState<Article[]>([]);
   const [isLoadingOriginal, setIsLoadingOriginal] = useState(true);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const [hasUpdated, setHasUpdated] = useState(false);
@@ -42,7 +43,7 @@ export const useArticles = () => {
   }, []);
 
   // Transform API response to Article format
-  const transformUpdatedArticle = (apiResponse) => {
+  const transformUpdatedArticle = (apiResponse: { data?: { originalArticle?: Article; updatedArticle?: Article } }) => {
     if (!apiResponse?.data?.updatedArticle) {
       return [];
     }
@@ -50,7 +51,7 @@ export const useArticles = () => {
     const { originalArticle, updatedArticle } = apiResponse.data;
     
     // Extract excerpt from content (first paragraph or first 200 characters)
-    const getExcerpt = (content) => {
+    const getExcerpt = (content: string | undefined): string => {
       if (!content) return "";
       // Try to get first paragraph
       const firstParagraph = content.split("\n\n")[0];
@@ -62,7 +63,7 @@ export const useArticles = () => {
     };
 
     // Calculate read time based on content length (average reading speed: 200 words/min)
-    const calculateReadTime = (content) => {
+    const calculateReadTime = (content: string | undefined): string => {
       if (!content) return "5 min read";
       const wordCount = content.split(/\s+/).length;
       const minutes = Math.ceil(wordCount / 200);

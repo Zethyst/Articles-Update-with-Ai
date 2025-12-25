@@ -1,5 +1,5 @@
 import { type Article } from "@/types/article";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, User } from "lucide-react";
 
 interface ArticleCardProps {
   article: Article;
